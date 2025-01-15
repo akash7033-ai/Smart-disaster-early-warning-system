@@ -1,0 +1,218 @@
+<html>
+ <head>
+  <title>
+   Disaster Management
+  </title>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <script src="https://cdn.tailwindcss.com">
+  </script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&amp;display=swap" rel="stylesheet"/>
+  <style>
+   .bg-animated {
+            background: linear-gradient(45deg, #ff6b6b, #f06595, #cc5de8, #845ef7, #5c7cfa, #339af0, #22b8cf, #20c997, #51cf66, #94d82d, #fcc419, #ff922b);
+            background-size: 300% 300%;
+            animation: gradientBG 15s ease infinite;
+        }
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .title-3d {
+            perspective: 1000px;
+        }
+        .title-3d h1 {
+            transform-style: preserve-3d;
+            transition: transform 0.3s;
+        }
+        .title-3d h1:hover {
+            transform: rotateY(10deg) rotateX(10deg);
+        }
+        .fade-in {
+            animation: fadeIn 2s ease-in-out;
+        }
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+        .move-up {
+            animation: moveUp 2s ease-in-out infinite alternate;
+        }
+        @keyframes moveUp {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-10px); }
+        }
+        .snowflake {
+            position: absolute;
+            top: -50px;
+            font-size: 24px;
+            animation: fall linear infinite;
+        }
+        @keyframes fall {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(100vh); }
+        }
+  </style>
+ </head>
+ <body class="bg-gray-100 font-montserrat bg-animated h-screen overflow-auto relative">
+  <div class="container mx-auto p-4 fade-in">
+   <div class="text-center mb-8 title-3d">
+    <h1 class="text-4xl font-bold text-white move-up">
+     Disaster Management
+    </h1>
+   </div>
+   <form action="" class="bg-white p-6 rounded-lg shadow-md move-up" method="post">
+    {% csrf_token %}
+    <h2 class="text-2xl font-semibold text-red-600 mb-4">
+     ALERT:
+    </h2>
+    <p class="text-lg mb-4">
+     {{ alert.alertinfo }}
+    </p>
+    <input class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700 cursor-pointer" type="submit" value="Update"/>
+   </form>
+   <br/>
+   <form action="/main/" class="bg-white p-6 rounded-lg shadow-md mb-8 move-up" method="POST">
+    {% csrf_token %}
+    <label class="block text-lg font-semibold mb-2">
+     Enter your location:
+    </label>
+    <input class="w-full p-2 border border-gray-300 rounded mb-4" name="input" placeholder="Enter location" type="text"/>
+    <button class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-700 cursor-pointer">
+     Submit
+    </button>
+   </form>
+   <div class="flex flex-col md:flex-row justify-between items-center mb-8 md:space-x-8 max-w-4xl mx-auto">
+    <!-- Government Official Section -->
+    <div class="text-center mb-4 md:mb-0 flex-1 move-up">
+     <label class="block text-lg font-semibold mb-2" for="govt-login">
+      Government Official
+     </label>
+     <img alt="Government Official logo" class="mx-auto mb-2" height="100" src="https://www.shutterstock.com/image-vector/ashok-pillar-symbol-icon-black-600nw-2422191035.jpg" width="100"/>
+     <input class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700 cursor-pointer" id="govt-login" onclick="location.href='{% url 'govtlogin' %}'" type="button" value="Login"/>
+    </div>
+    <!-- Admin Section -->
+    <div class="text-center flex-1 move-up">
+     <label class="block text-lg font-semibold mb-2" for="admin-login">
+      Admin
+     </label>
+     <img alt="Admin logo" class="mx-auto mb-2" height="100" src="https://imgcdn.stablediffusionweb.com/2024/9/12/269253cf-0164-4ffa-a64e-c958447c4407.jpg" width="100"/>
+     <form action="{% url 'admin:login' %}" id="admin-login" method="POST">
+      {% csrf_token %}
+      <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700 cursor-pointer" type="submit">
+       Login
+      </button>
+     </form>
+    </div>
+   </div>
+   <div class="bg-white p-6 rounded-lg shadow-md mb-8 move-up">
+    <h3 class="text-xl font-semibold mb-4">
+     Reference Links
+    </h3>
+    <ul class="list-disc list-inside mb-4 space-y-2">
+     <li>
+      <a class="text-blue-500 hover:underline" href="https://ndrf.gov.in/en/contact-us">
+       <i class="fas fa-link mr-2">
+       </i>
+       www.ndrf.gov.in
+      </a>
+     </li>
+     <li>
+      <a class="text-blue-500 hover:underline" href="https://indianhelpline.com/">
+       <i class="fas fa-link mr-2">
+       </i>
+       www.Indianhelpline.com
+      </a>
+     </li>
+     <li>
+      <a class="text-blue-500 hover:underline" href="https://www.samhsa.gov/find-help/disaster-distress-helpline">
+       <i class="fas fa-link mr-2">
+       </i>
+       www.Disaster disaster-distress-helpline.com
+      </a>
+     </li>
+    </ul>
+   </div>
+   <div class="bg-white p-6 rounded-lg shadow-md move-up">
+    <h3 class="text-xl font-semibold mb-4">
+     About Us:
+    </h3>
+    <div class="space-y-2">
+     <p class="flex items-center">
+      <i class="fas fa-user mr-2 text-blue-500">
+      </i>
+      <strong>
+       Admin Name:
+      </strong>
+      AADYA MISHRA
+     </p>
+     <p class="flex items-center">
+      <i class="fas fa-phone mr-2 text-blue-500">
+      </i>
+      <strong>
+       Contact:
+      </strong>
+      9935713248
+     </p>
+     <p class="flex items-center">
+      <i class="fas fa-envelope mr-2 text-blue-500">
+      </i>
+      <strong>
+       Email:
+      </strong>
+      <a class="text-blue-500 hover:underline" href="https://mail.google.com/mail/u/2/#inbox">
+       adyamishra2004@gmail.com
+      </a>
+     </p>
+     <p class="flex items-center">
+      <i class="fas fa-map-marker-alt mr-2 text-blue-500">
+      </i>
+      <strong>
+       Address:
+      </strong>
+       Chandigarh India
+     </p>
+     <p class="flex items-center">
+      <i class="fab fa-instagram mr-2 text-blue-500">
+      </i>
+      <strong>
+       Instagram:
+      </strong>
+      <a class="text-blue-500 hover:underline" href="https://www.instagram.com/adya.akm">
+       adya.akm
+      </a>
+     </p>
+    </div>
+   </div>
+  </div>
+  <!-- Snowflakes -->
+  <div class="snowflake" style="left: 10%; animation-duration: 10s;">
+   ❄️
+  </div>
+  <div class="snowflake" style="left: 20%; animation-duration: 12s;">
+   ❄️
+  </div>
+  <div class="snowflake" style="left: 30%; animation-duration: 8s;">
+   ❄️
+  </div>
+  <div class="snowflake" style="left: 40%; animation-duration: 14s;">
+   ❄️
+  </div>
+  <div class="snowflake" style="left: 50%; animation-duration: 10s;">
+   ❄️
+  </div>
+  <div class="snowflake" style="left: 60%; animation-duration: 12s;">
+   ❄️
+  </div>
+  <div class="snowflake" style="left: 70%; animation-duration: 8s;">
+   ❄️
+  </div>
+  <div class="snowflake" style="left: 80%; animation-duration: 14s;">
+   ❄️
+  </div>
+  <div class="snowflake" style="left: 90%; animation-duration: 10s;">
+   ❄️
+  </div>
+ </body>
+</html>
